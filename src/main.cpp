@@ -1,26 +1,31 @@
 #include "include.h"
 #include "math_3d.h"
 
-GLuint VBO;
+unsigned int BufferDot;
+unsigned int BufferLeft;
+unsigned int BufferRight;
+
+glGenBuffers(1, &BufferDot);
+glGenBuffers(2, &BufferLeft);
+glGenBuffers(3, &BufferRight);
+
+float dot[2] = {0.0f, 0.0f};
+static float BarLeft[4] = {-1.0f, -1.0f, -1.0f, 1.0f};
+static float BarRight[4] = {1.0f, -1.0f, 1.0f, 1.0f};
+
+static void CreateVertexBuffer(){
+    glBindBuffer(GL_ARRAY_BUFFER, BufferDot);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(dot), dot, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, BufferLeft);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(BarLeft), BarLeft, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, BufferRight);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(BarRight), BarRight, GL_STATIC_DRAW);
+    }
 
 static void RenderSceneCB(){
     glClear(GL_COLOR_BUFFER_BIT);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    glDrawArrays(GL_LINES, 0, 2);
-    glDisableVertexAttribArray(0);
-    glutSwapBuffers();
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float)*2, 0);
 }
-
-static void CreateVertexBuffer(){
-    Vector3f Vertices[2];
-    Vertices[0]=Vector3f(-1.0f,-1.0f,0.0f);
-    Vertices[1]=Vector3f(1.0f,-1.0f,0.0f);
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
-    }
 
 int main(int argc, char** argv){
     glutInit(&argc, argv);
