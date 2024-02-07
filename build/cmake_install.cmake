@@ -1,4 +1,4 @@
-# Install script for directory: /home/cedric/Desktop/pong
+# Install script for directory: /home/cedric/Desktop/Pong
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/cedric/Desktop/pong/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/cedric/Desktop/Pong/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
