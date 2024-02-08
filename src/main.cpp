@@ -1,9 +1,25 @@
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-static unsigned int CompileShader(unsigned int type, const std::string& source){
+std::string readShader(std::string file){
+    std::string shader;
+
+    std::ifstream stream(file);
+    std::string line; 
+    while(std::getline(stream, line)){
+        line += "\n";
+        shader += line;
+    }
+    stream.close();
+    return shader;
+}
+
+
+static unsigned int CompileShader(unsigned int type, const std::string& sourceFile){
+    std::string source = readShader(sourceFile);
     unsigned int id = glCreateShader(type);
     const char* src = source.c_str();
     glShaderSource(id, 1, &src, nullptr);
@@ -16,7 +32,7 @@ static unsigned int CompileShader(unsigned int type, const std::string& source){
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
         char* message = (char*)alloca(length * sizeof(char));
         glGetShaderInfoLog(id, length, &length, message);
-        std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << " shader...\n" << std::endl;
+        std::cout << "Failed to compile shader..." << std::endl;
         std::cout << message << std::endl;
         glDeleteShader(id);
         return 0;
@@ -58,49 +74,29 @@ int main(){
     glfwMakeContextCurrent(window);
     glewInit();
 
-    std::cout << "Window created." << std::endl;
+    struct Vertex {
+        float position[2];
+        float color[3];
+    };
 
-    float positions[6] = {-0.5f, -0.5f, 0.0f, 0.5f, 0.5f, -0.5f};
+    Vertex vertices[] = {
+        {{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+        {{0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}},
+        {{0.0f, 0.5f}, {0.0f, 0.0f, 1.0f}}
+    };
 
     unsigned int buffer;
     glGenBuffers(1, &buffer);
-    std::cout << "Buffer generated." << std::endl;
-
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
 
-    std::cout << "Initialized and bound vertex buffer." << std::endl;
-
-    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
-
-    std::cout << "Buffer provided with data." << std::endl;
-
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float)*2, 0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
 
-
-    std::string vertexShader = 
-        "#version 330 core\n"
-        "\n"
-        "layout(location = 0) in vec4 position;"
-        "\n"
-        "void main()\n"
-        "{\n"
-        "   gl_Position = position;\n"
-        "}\n";
-
-    std::string fragmentShader = 
-        "#version 330 core\n"
-        "\n"
-        "layout(location = 0) out vec4 color;"
-        "\n"
-        "void main()\n"
-        "{\n"
-        "   color = vec4(1.0, 0.0, 0.0, 1.0);\n"
-        "}\n";
-
-
-    unsigned int shader = CreateShader(vertexShader, fragmentShader);
+    unsigned int shader = CreateShader("vertexShader.glsl", "fragmentShader.glsl");
     glUseProgram(shader);
 
     while (!glfwWindowShouldClose(window)){
