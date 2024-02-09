@@ -1,3 +1,0 @@
-/home/cedric/Desktop/Pong/build/CMakeFiles/Pong.dir
-/home/cedric/Desktop/Pong/build/CMakeFiles/edit_cache.dir
-/home/cedric/Desktop/Pong/build/CMakeFiles/rebuild_cache.dir

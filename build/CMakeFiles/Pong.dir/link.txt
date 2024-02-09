@@ -1,1 +1,0 @@
-/usr/bin/c++ -rdynamic CMakeFiles/Pong.dir/src/main.cpp.o CMakeFiles/Pong.dir/src/shader.cpp.o -o Pong  -lGL -lglfw3 -lGLEW 
