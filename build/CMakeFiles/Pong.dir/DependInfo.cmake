@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/cedric/Desktop/Pong/src/main.cpp" "CMakeFiles/Pong.dir/src/main.cpp.o" "gcc" "CMakeFiles/Pong.dir/src/main.cpp.o.d"
+  "/home/cedric/Desktop/Pong/src/shader.cpp" "CMakeFiles/Pong.dir/src/shader.cpp.o" "gcc" "CMakeFiles/Pong.dir/src/shader.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

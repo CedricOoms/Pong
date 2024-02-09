@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Pong.dir/src/main.cpp.o"
   "CMakeFiles/Pong.dir/src/main.cpp.o.d"
+  "CMakeFiles/Pong.dir/src/shader.cpp.o"
+  "CMakeFiles/Pong.dir/src/shader.cpp.o.d"
   "Pong"
   "Pong.pdb"
 )

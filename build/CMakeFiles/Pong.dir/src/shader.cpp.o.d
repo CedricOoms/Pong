@@ -1,5 +1,5 @@
-CMakeFiles/Pong.dir/src/main.cpp.o: \
- /home/cedric/Desktop/Pong/src/main.cpp /usr/include/stdc-predef.h \
+CMakeFiles/Pong.dir/src/shader.cpp.o: \
+ /home/cedric/Desktop/Pong/src/shader.cpp /usr/include/stdc-predef.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
